@@ -1,3 +1,15 @@
+const STATUS_LABELS = {
+  aberto: 'Aberto',
+  em_andamento: 'Em andamento',
+  aguardando_solicitante: 'Aguardando solicitante',
+  resolvido: 'Resolvido',
+  fechado: 'Fechado',
+};
+
+function statusLabel(status) {
+  return STATUS_LABELS[status] || status;
+}
+
 function ticketCreated(ticket) {
   return {
     subject: `[Chamado #${ticket.id}] Aberto: ${ticket.title}`,
@@ -14,8 +26,8 @@ function newComment(ticket, authorName) {
 
 function statusChanged(ticket, oldStatus, newStatus) {
   return {
-    subject: `[Chamado #${ticket.id}] Status alterado para ${newStatus}`,
-    html: `<p>O status do chamado <strong>#${ticket.id} - ${ticket.title}</strong> mudou de "${oldStatus}" para "${newStatus}".</p>`,
+    subject: `[Chamado #${ticket.id}] Status alterado para ${statusLabel(newStatus)}`,
+    html: `<p>O status do chamado <strong>#${ticket.id} - ${ticket.title}</strong> mudou de "${statusLabel(oldStatus)}" para "${statusLabel(newStatus)}".</p>`,
   };
 }
 

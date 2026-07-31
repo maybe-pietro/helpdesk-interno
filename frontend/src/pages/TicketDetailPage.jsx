@@ -11,7 +11,7 @@ import {
 import { useUsers } from '../hooks/useUsers';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import StatusBadge from '../components/tickets/StatusBadge';
+import StatusBadge, { STATUS_LABELS } from '../components/tickets/StatusBadge';
 import PriorityBadge from '../components/tickets/PriorityBadge';
 import CommentThread from '../components/tickets/CommentThread';
 import AttachmentList from '../components/tickets/AttachmentList';
@@ -66,7 +66,7 @@ export default function TicketDetailPage() {
 
   const handleChangeStatus = (status) => {
     changeStatus.mutate(status, {
-      onSuccess: () => toast.success(`Status alterado para "${status}".`),
+      onSuccess: () => toast.success(`Status alterado para "${STATUS_LABELS[status]}".`),
     });
   };
 
@@ -113,7 +113,7 @@ export default function TicketDetailPage() {
                     disabled={changeStatus.isPending}
                     onClick={() => handleChangeStatus(status)}
                   >
-                    {status}
+                    {STATUS_LABELS[status]}
                   </Button>
                 ))}
               </div>

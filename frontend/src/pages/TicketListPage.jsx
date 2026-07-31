@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTickets } from '../hooks/useTickets';
 import { useAuth } from '../context/AuthContext';
-import StatusBadge from '../components/tickets/StatusBadge';
+import StatusBadge, { STATUS_LABELS } from '../components/tickets/StatusBadge';
 import PriorityBadge from '../components/tickets/PriorityBadge';
 import Card from '../components/ui/Card';
 import Input from '../components/ui/Input';
@@ -42,7 +42,7 @@ export default function TicketListPage() {
         <Select value={status} onChange={(e) => setStatus(e.target.value)} className="w-auto">
           <option value="">Todos os status</option>
           {STATUS_OPTIONS.map((s) => (
-            <option key={s} value={s}>{s}</option>
+            <option key={s} value={s}>{STATUS_LABELS[s]}</option>
           ))}
         </Select>
         <Input

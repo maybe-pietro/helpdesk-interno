@@ -1,12 +1,18 @@
+import { STATUS_LABELS } from './StatusBadge';
+
 function formatDate(value) {
   return new Date(value).toLocaleString('pt-BR');
+}
+
+function statusLabel(status) {
+  return STATUS_LABELS[status] || status;
 }
 
 function EventItem({ event }) {
   if (event.event_type === 'status_change') {
     return (
       <li className="text-xs text-slate-500 italic">
-        {event.author_name} alterou o status de "{event.old_status}" para "{event.new_status}" em {formatDate(event.created_at)}
+        {event.author_name} alterou o status de "{statusLabel(event.old_status)}" para "{statusLabel(event.new_status)}" em {formatDate(event.created_at)}
       </li>
     );
   }
