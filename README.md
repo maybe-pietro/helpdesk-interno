@@ -114,9 +114,15 @@ Roteiro de teste manual:
 3. Conferir os emails em http://127.0.0.1:1080.
 4. Login como admin (`admin@empresa.com` / `admin123`) → ver o dashboard → criar/remover usuario/departamento/categoria no painel admin (confirmar que o dialog de confirmacao aparece nas remocoes).
 
+## Testes automatizados
+
+- **Backend** (Jest + Supertest, testes de integracao contra a API real e o MySQL do docker-compose): `docker compose exec backend npm test`. O `globalSetup` roda migrations + seed automaticamente antes da suite, reaproveitando os mesmos scripts de seed do dev (isso reseta o banco de dev compartilhado — normal para um projeto deste porte, sem dados de producao). Cobre principalmente autenticacao/permissoes e o ciclo de vida de chamados (inclui testes de regressao dos dois bugs reais encontrados durante a validacao manual: `department_id` faltando no usuario autenticado, e timestamps nao limpos ao reabrir um chamado).
+- **Frontend** (Vitest + Testing Library, jsdom): `docker compose exec frontend npm test`. Cobre os componentes/paginas onde ja apareceram bugs reais (labels de status/prioridade, timeline de eventos, formulario de login).
+- **CI**: `.github/workflows/ci.yml` roda lint + testes (backend com um MySQL de servico efemero) + build do frontend a cada push/PR na `main`.
+
 ## Fora do escopo do MVP (proximos passos sugeridos)
 
 - SLA / prazos de atendimento com alertas automaticos.
 - Aplicativo mobile (a API ja é desacoplada do frontend, entao um app futuro pode reusa-la).
 - SSO / integracao com Active Directory.
-- Testes automatizados (Jest/Supertest no backend, Vitest/Testing Library no frontend) — estrutura de pastas ja preparada (`backend/tests`), mas testes ainda nao escritos.
+- `npm audit` acusa vulnerabilidades em dependencias transitivas (backend e frontend) — nao investigadas/corrigidas ainda; rodar `npm audit` em cada projeto antes de ir para producao.
