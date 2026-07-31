@@ -41,9 +41,10 @@ Pré-requisitos: Docker e Docker Compose instalados.
    ```
 
 4. Acesse:
-   - Frontend: http://localhost:5173
-   - API: http://localhost:4000/api/health
-   - Emails de teste (MailDev): http://localhost:1080
+   - Frontend: http://127.0.0.1:5173
+   - API: http://127.0.0.1:4000/api/health
+   - Emails de teste (MailDev): http://127.0.0.1:1080
+   - Banco de dados (Adminer): http://127.0.0.1:8080 — sistema `MySQL`, servidor `mysql`, usuario/senha/banco conforme `backend/.env` (`MYSQL_USER`/`MYSQL_PASSWORD`/`MYSQL_DATABASE`)
 
 ## Usuários de exemplo (seed)
 

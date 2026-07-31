@@ -50,6 +50,17 @@ services:
       - "1080:1080" # web UI to view sent emails
       - "1025:1025" # SMTP
 
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080" # web UI to browse the database
+
 volumes:
   mysql_data:
   uploads_data:
